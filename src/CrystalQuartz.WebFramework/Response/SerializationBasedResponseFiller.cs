@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using CrystalQuartz.WebFramework.HttpAbstractions;
 using CrystalQuartz.WebFramework.Serialization;
+using System.Threading.Tasks;
 
 namespace CrystalQuartz.WebFramework.Response
 {
@@ -22,12 +23,14 @@ namespace CrystalQuartz.WebFramework.Response
             get { return _contentType; }
         }
 
-        protected override void InternalFillResponse(Stream outputStream, IRequest request)
+        protected override Task InternalFillResponse(Stream outputStream, IRequest request)
         {
             using (var writer = new StreamWriter(outputStream))
             {
                 _serializer.Serialize(_model, writer);
             }
+
+            return Task.CompletedTask;
         }
     }
 }

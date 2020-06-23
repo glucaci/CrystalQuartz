@@ -1,6 +1,7 @@
 namespace CrystalQuartz.WebFramework.Response
 {
     using System.IO;
+    using System.Threading.Tasks;
     using System.Web;
     using CrystalQuartz.WebFramework.HttpAbstractions;
 
@@ -23,6 +24,6 @@ namespace CrystalQuartz.WebFramework.Response
             return new Response(ContentType, StatusCode, stream => InternalFillResponse(stream, request));
         }
 
-        protected abstract void InternalFillResponse(Stream outputStream, IRequest request);
+        protected abstract Task InternalFillResponse(Stream outputStream, IRequest request);
     }
 }

@@ -2,14 +2,15 @@
 {
     using System;
     using System.IO;
+    using System.Threading.Tasks;
 
     public class Response
     {
         private readonly string _contentType;
         private readonly int _statusCode;
-        private readonly Action<Stream> _contentFiller;
+        private readonly Func<Stream, Task> _contentFiller;
 
-        public Response(string contentType, int statusCode, Action<Stream> contentFiller)
+        public Response(string contentType, int statusCode, Func<Stream, Task> contentFiller)
         {
             _contentType = contentType;
             _statusCode = statusCode;
@@ -26,7 +27,7 @@
             get { return _statusCode; }
         }
 
-        public Action<Stream> ContentFiller
+        public Func<Stream, Task> ContentFiller
         {
             get { return _contentFiller; }
         }
